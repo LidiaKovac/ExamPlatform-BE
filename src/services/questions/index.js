@@ -31,7 +31,7 @@ router.post(
         const err = new Error();
         err.message = errors;
         console.log(err.message);
-        err.httpStatusCOde = 400;
+        err.httpStatusCode = 400;
         next(err);
       } else {
         const questions = await readDataBase("questions.json");
@@ -73,7 +73,6 @@ router.post(
             JSON.stringify(exams)
           );
           res.status(201).send(newExam._id);
-          res.send(newExam);
         } else console.log("error");
       }
     } catch (error) {
@@ -188,6 +187,19 @@ router.post(
     }
   }
 );
+router.get("/:id", async(req,res,next) => {
+    try {
+        const examsDB = await readDataBase("../exams/exams.json")
+        console.log(examsDB)
+        const exam = await examsDB.filter((e)=>e._id === req.params.id)
+       
+        res.send(exam)
+    } catch(error) {
+        console.log(error)
+        next(error)
+    }
+    
+})
 
 /* answers: [
     {
