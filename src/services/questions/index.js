@@ -42,12 +42,12 @@ router.post(
         let numbers = [];
         index.forEach((num, index) => {
           //generated 5 random numbers
-          newNum = Math.floor(Math.random() * questionNum) + 1;
+          newNum = Math.floor(Math.random() * questionNum);
           console.log(newNum);
           //checks if numbers are duplicated
           if (numbers[index] === numbers[index++]) {
             numbers.push(newNum);
-          } else newNum = Math.floor(Math.random() * questionNum) + 1;
+          } else newNum = Math.floor(Math.random() * questionNum);
         });
         console.log(numbers);
         let chosenQuestions = [];
@@ -56,7 +56,7 @@ router.post(
           chosenQuestions.push(questions[num]);
         });
         const newExam = {
-          _id: uniqid(),
+          _id: req.body.id,
           candidateName: req.body.candidateName,
           examDate: new Date(),
           isCompleted: false,
@@ -72,7 +72,7 @@ router.post(
             path.join(__dirname, "../exams/exams.json"),
             JSON.stringify(exams)
           );
-          res.status(201).send(newExam._id);
+          res.status(201).send(exams);
         } else console.log("error");
       }
     } catch (error) {
@@ -133,6 +133,7 @@ router.post(
       .withMessage("An answer must be provided")
       .isInt()
       .withMessage("Answer must be a number"),
+
   ],
   async (req, res, next) => {
     try {
@@ -153,7 +154,6 @@ router.post(
       
       let answerCheck = [];
       await exam[0].questions.forEach((quest) => {
-        //this needs to be awaited to ensure line 190
         quest.answers.forEach((an, index) => {
           if (an.isCorrect === true) {
             answerCheck.push(index);
@@ -180,7 +180,7 @@ router.post(
           path.join(__dirname, '../exams/exams.json'),
           JSON.stringify(exam)
       )
-      res.status(201).send({exam})
+      res.status(201).send(exam.score)
     } catch (error) {
       console.log(error);
       next(error);
