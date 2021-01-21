@@ -25,8 +25,20 @@ module.exports = (sequelize, DataTypes) => {
     },
     { timestamps: false }
   );
-  Questions.associate = (models) => { //JS method that declares model relations 
-    Questions.belongsToMany(models.Exam, {through: "QuestionSets" }); 
+  const QuestionSets = sequelize.define(
+    "QuestionSets",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+    },
+    { timestamps: false }
+  );
+  Questions.associate = (models) => {
+    //JS method that declares model relations
+    Questions.belongsToMany(models.Exam, { through: QuestionSets });
   };
   return Questions;
 };

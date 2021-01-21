@@ -7,6 +7,18 @@ module.exports = (sequelize, DataTypes) => {
           primaryKey: true,
           autoIncrement: true,
         },
+        candidate_name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        score: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        attempts: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        }
       },
       { timestamps: false }
     );

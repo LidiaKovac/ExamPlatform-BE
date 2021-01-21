@@ -6,9 +6,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-      },
-  question_set_id: {
-        type: DataTypes.STRING
       }
     },
     { timestamps: false }
