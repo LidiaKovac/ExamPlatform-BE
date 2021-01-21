@@ -20,9 +20,13 @@ const {
   routeNotFound,
  
 } = require("./errorHandling.js")
+const db = require("./utils/db")
 
 server.use('/exam', questionsRoute)
 
-server.listen(port, ()=> {
-    console.log("Server is running on", port, " with these endpoints: ", endpoints(server))
+db.sequelize.sync({force: true}).then((result)=> {
+  server.listen(port, ()=> {
+    console.log("❗ Server is running on", port, " with these endpoints: ", endpoints(server))
 })
+})
+
