@@ -1,7 +1,6 @@
 const express = require("express");
 const { check } = require("express-validator");
-const fs = require("fs");
-const { QueryTypes } = require('sequelize'); //allows us to use raw queries
+const fs = require("fs"); //allows us to use raw queries
 const path = require("path");
 const { Student, Exam, Question } = require("../../utils/db"); //another synstax of line 9, more familiar
 const db = require("../../utils/db")

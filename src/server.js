@@ -1,16 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { join } = require("path");
 const endpoints = require("express-list-endpoints");
-
-const questionsRoute = require("./services/questions");
-
-const server = express();
-const port = process.env.PORT;
-
-server.use(cors());
-server.use(express.json());
-
 const {
   notFoundHandler,
   unauthorizedHandler,
@@ -19,7 +9,15 @@ const {
   badRequest,
   routeNotFound,
 } = require("./errorHandling.js");
+const questionsRoute = require("./services/questions");
 const db = require("./utils/db");
+
+
+const server = express();
+const port = process.env.PORT;
+
+server.use(cors());
+server.use(express.json());
 
 server.use("/exam", questionsRoute);
 
